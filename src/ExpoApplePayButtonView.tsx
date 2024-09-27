@@ -5,8 +5,7 @@ import { ApplePayButtonStyle, ApplePayButtonType } from './ExpoApplePayButton.ty
 
 
 
-const NativeView: React.ComponentType<ViewProps> =
-  requireNativeViewManager('ExpoApplePayButton');
+const NativeView: React.ComponentType<ViewProps> = Platform.OS === 'android' ? View : requireNativeViewManager('ExpoApplePayButton');
 
 
 interface Props extends ViewProps {
@@ -17,9 +16,5 @@ interface Props extends ViewProps {
 
 export default function ExpoApplePayButtonView({ onPress, ...props }: Props) {
   if (Platform.OS !== 'ios') return <View {...props} />
-  return (
-    <Pressable onPress={onPress}>
-      <NativeView {...props} />
-    </Pressable>
-  )
+  return <NativeView {...props} />
 }
